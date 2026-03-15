@@ -591,26 +591,7 @@ textarea.form-control{resize:vertical;min-height:80px;}
       <a href="#" onclick="showNotif('Link reset password telah dikirim ke email Anda','success');return false;">Lupa Password?</a>
       <a href="#" onclick="showNotif('Hubungi HR untuk mendaftar','warn');return false;">Daftar Akun</a>
     </div>
-    <div onclick="fillAdminLogin()" style="margin-top:18px;border:1.5px dashed var(--border);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s;background:var(--card);">
-      <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#1E293B,#0F172A);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg style="width:16px;height:16px;stroke:#8ED8FF;fill:none;stroke-width:2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div style="flex:1;">
-        <div style="font-size:.8rem;font-weight:700;color:var(--text);">Login sebagai Admin / HR</div>
-        <div style="font-size:.7rem;color:var(--subtext);margin-top:1px;">ID: ADMIN001 · Panel manajemen karyawan</div>
-      </div>
-      <svg style="width:14px;stroke:var(--subtext);fill:none;stroke-width:2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
-    <div onclick="fillOwnerLogin()" style="margin-top:10px;border:1.5px dashed #FDE68A;border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s;background:#FFFBEB;">
-      <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg style="width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
-      <div style="flex:1;">
-        <div style="font-size:.8rem;font-weight:700;color:#92400E;">Login sebagai Owner / Pemilik</div>
-        <div style="font-size:.7rem;color:#B45309;margin-top:1px;">ID: OWNER001 · Dashboard monitoring bisnis</div>
-      </div>
-      <svg style="width:14px;stroke:#B45309;fill:none;stroke-width:2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
+
   </div>
 </div>
 
@@ -1006,7 +987,7 @@ textarea.form-control{resize:vertical;min-height:80px;}
         </div>
         <div class="settings-item">
           <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><span class="si-label">Notifikasi Push</span></div>
-          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+          <button class="toggle on" id="notifToggle" onclick="toggleNotifPush(this)"></button>
         </div>
         <div class="settings-item">
           <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -1102,7 +1083,6 @@ textarea.form-control{resize:vertical;min-height:80px;}
     </div>
     <div class="nav-item" id="nav-pengajuan" onclick="showTab('pengajuan')">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <div class="nav-dot"></div>
       <span>Pengajuan</span>
     </div>
     <div class="nav-item" id="nav-settings" onclick="showTab('settings')">
@@ -2106,25 +2086,7 @@ function doLogin() {
   err.textContent = 'ID karyawan atau password salah';
 }
 
-function doFingerprintLogin() {
-  // BUGFIX: validasi divisi dipilih sebelum fingerprint login
-  const divVal = document.getElementById('loginDivisi').value;
-  const id = document.getElementById('loginId').value.trim();
-  // Fingerprint hanya untuk karyawan biasa (bukan admin/owner)
-  if(id === ADMIN_CREDENTIALS.id || id === OWNER_CREDENTIALS.id) {
-    showNotif('Fingerprint hanya untuk login karyawan','warn'); return;
-  }
-  showNotif('Memindai fingerprint...','');
-  setTimeout(() => {
-    if(divVal) currentDivisi = divVal;
-    updateProfileUI(currentDivisi);
-    showNotif('Fingerprint dikenali! Login berhasil','success');
-    setTimeout(() => {
-      document.getElementById('loginScreen').classList.remove('active');
-      document.getElementById('mainApp').classList.add('active');
-    }, 600);
-  }, 1500);
-}
+// doFingerprintLogin ada di bawah (versi PIN)
 
 function doLogout() {
   if(confirm('Yakin ingin keluar dari akun?')) {
@@ -2184,21 +2146,7 @@ function switchPill(name) {
 // ===== SCAN =====
 let cameraStream = null;
 
-function openScan(type) {
-  state.scanType = type;
-  state.scanDone = false;
-  document.getElementById('scanTitle').textContent = type === 'masuk' ? '🔐 Absensi Masuk' : '🔓 Absensi Pulang';
-  document.getElementById('scanStatusTitle').textContent = 'Posisikan Wajah Anda';
-  document.getElementById('scanStatusSub').textContent = 'Pastikan wajah berada dalam frame dan cahaya cukup';
-  document.getElementById('scanSuccessEl').style.display = 'none';
-  document.getElementById('scanLineEl').style.display = 'block';
-  document.getElementById('btnScanAction').textContent = 'Mulai Scan Wajah';
-  document.getElementById('btnScanAction').disabled = false;
-  document.getElementById('step2').className = 'step active';
-  document.getElementById('step3').className = 'step';
-  showTab('scan');
-  startCamera();
-}
+// openScan ada di bawah versi GPS
 
 async function startCamera() {
   const video = document.getElementById('cameraFeed');
@@ -2336,11 +2284,24 @@ function toggleDark() {
 
 // ===== MODAL =====
 function openModal(id) {
-  document.getElementById(id).classList.add('open');
-  if(id === 'divisiModal') renderDivisiList();
+  if (id === 'registrasiWajahModal') { openModal_registrasiWajah(); return; }
+  if (id === 'editProfilModal') { openEditProfil(); return; }
+  const el = document.getElementById(id);
+  if (!el) { console.warn('Modal tidak ditemukan:', id); return; }
+  el.classList.add('open');
+  if (id === 'divisiModal') renderDivisiList();
+  if (id === 'fingerprintModal') { setTimeout(loadFPStatus,50); }
+  if (id === 'lemburModal') {
+    hitungLembur();
+    const ti = document.getElementById('lemburTarifInfo');
+    const mi = document.getElementById('lemburMinInfo');
+    if (ti) ti.textContent = 'Rp ' + adminLemburSetting.tarif.toLocaleString('id') + '/jam';
+    if (mi) mi.textContent = adminLemburSetting.minJam;
+  }
 }
 function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('open');
 }
 
 // ===== FORMS =====
@@ -2932,24 +2893,9 @@ function adminLogout() {
   showNotif('Berhasil keluar dari panel admin','');
 }
 
-function adminTab(tab) {
-  currentAdminTab = tab;
-  ['dash','absensi','approval','karyawan','mutasi'].forEach(t => {
-    const btn = document.getElementById(`adm-tab-${t}`);
-    if(btn) btn.classList.toggle('active', t === tab);
-  });
-  renderAdminContent();
-}
+// adminTab ada di bawah (versi lengkap dengan setting)
 
-function renderAdminContent() {
-  const el = document.getElementById('adminContent');
-  if(!el) return;
-  if(currentAdminTab === 'dash')     el.innerHTML = renderAdminDash();
-  if(currentAdminTab === 'absensi')  el.innerHTML = renderAdminAbsensi();
-  if(currentAdminTab === 'approval') el.innerHTML = renderAdminApproval();
-  if(currentAdminTab === 'karyawan') el.innerHTML = renderAdminKaryawan();
-  if(currentAdminTab === 'mutasi')   el.innerHTML = renderAdminMutasi();
-}
+// renderAdminContent ada di bawah (versi lengkap dengan setting)
 
 // ---- DASH ----
 function renderAdminDash() {
@@ -3562,13 +3508,7 @@ function closeRegWajah() {
   closeModal('registrasiWajahModal');
 }
 
-// Override openModal untuk registrasi wajah
-const _origOpenModal = openModal;
-function openModal(id) {
-  if (id === 'registrasiWajahModal') { openModal_registrasiWajah(); return; }
-  if (id === 'editProfilModal') { openEditProfil(); return; }
-  _origOpenModal(id);
-}
+// openModal sudah di-merge di atas
 
 // ============================================================
 // ===== FITUR BARU: GPS LOKASI =====
@@ -3958,6 +3898,24 @@ const _origDoScan_save = doScan;
 // Override simpanAbsensi di doScan
 // Tambahkan call simpanAbsensiKeStorage setelah doScan berhasil
 // Ini dilakukan dengan mempatch logika di doScan yang sudah ada
+
+
+// ===== NOTIF PUSH TOGGLE =====
+function toggleNotifPush(btn) {
+  btn.classList.toggle('on');
+  const on = btn.classList.contains('on');
+  localStorage.setItem('notifPush', on ? '1' : '0');
+  showNotif(on ? 'Notifikasi Push diaktifkan' : 'Notifikasi Push dinonaktifkan', on ? 'success' : 'warn');
+}
+
+// ===== LOAD NOTIF PUSH STATE =====
+(function() {
+  const saved = localStorage.getItem('notifPush');
+  if (saved === '0') {
+    const btn = document.getElementById('notifToggle');
+    if (btn) btn.classList.remove('on');
+  }
+})();
 
 </script>
 </body>
