@@ -178,7 +178,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 #scanScreen{background:var(--bg);}
 .scan-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
 .scan-box{width:260px;height:260px;position:relative;margin-bottom:28px;}
-.scan-frame{width:100%;height:100%;border-radius:24px;background:#0a0a0a;overflow:hidden;
+.scan-frame{width:100%;height:100%;border-radius:24px;background:#0a0a1a;overflow:hidden;
   position:relative;border:2px solid var(--accent);}
 .scan-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);}
 .scan-line{position:absolute;left:10%;width:80%;height:3px;
@@ -831,9 +831,17 @@ textarea.form-control{resize:vertical;min-height:80px;}
     <div class="scan-wrap">
       <div class="scan-box">
         <div class="scan-frame">
-          <div class="scan-overlay"></div>
+          <!-- Live camera feed -->
+          <video id="cameraFeed" autoplay playsinline muted
+            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:22px;transform:scaleX(-1);display:none;"></video>
+          <!-- Camera off placeholder -->
+          <div id="cameraPlaceholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#0a0a1a,#0d1b2e);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+            <svg style="width:36px;height:36px;stroke:#8ED8FF;fill:none;stroke-width:1.5;opacity:.6" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <div style="color:rgba(142,216,255,.5);font-size:.7rem;text-align:center;">Kamera belum aktif</div>
+          </div>
+          <div class="scan-overlay" id="scanOverlay"></div>
           <div class="scan-line" id="scanLineEl"></div>
-          <div class="face-circle">
+          <div class="face-circle" id="faceCircleEl">
             <div class="face-inner"></div>
           </div>
           <div class="scan-success" id="scanSuccessEl" style="display:none">
@@ -1945,6 +1953,8 @@ function doLogout() {
 
 // ===== NAVIGATION =====
 function showTab(tab) {
+  // Stop camera if leaving scan tab
+  if(tab !== 'scan') stopCamera();
   const tabs = ['home','history','scan','pengajuan','settings'];
   tabs.forEach(t => {
     document.getElementById(`tab${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.remove('active');
@@ -1969,6 +1979,8 @@ function switchPill(name) {
 }
 
 // ===== SCAN =====
+let cameraStream = null;
+
 function openScan(type) {
   state.scanType = type;
   state.scanDone = false;
@@ -1982,6 +1994,43 @@ function openScan(type) {
   document.getElementById('step2').className = 'step active';
   document.getElementById('step3').className = 'step';
   showTab('scan');
+  startCamera();
+}
+
+async function startCamera() {
+  const video = document.getElementById('cameraFeed');
+  const placeholder = document.getElementById('cameraPlaceholder');
+  const overlay = document.getElementById('scanOverlay');
+  try {
+    // Stop existing stream first
+    if(cameraStream) { cameraStream.getTracks().forEach(t=>t.stop()); cameraStream = null; }
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width:{ideal:640}, height:{ideal:640} },
+      audio: false
+    });
+    cameraStream = stream;
+    video.srcObject = stream;
+    video.style.display = 'block';
+    placeholder.style.display = 'none';
+    overlay.style.background = 'rgba(0,0,0,.15)';
+  } catch(err) {
+    console.warn('Camera error:', err);
+    placeholder.querySelector('div').textContent = 'Izinkan akses kamera di browser';
+    video.style.display = 'none';
+    placeholder.style.display = 'flex';
+    showNotif('Izinkan akses kamera untuk absensi','warn');
+  }
+}
+
+function stopCamera() {
+  if(cameraStream) {
+    cameraStream.getTracks().forEach(t => t.stop());
+    cameraStream = null;
+  }
+  const video = document.getElementById('cameraFeed');
+  if(video) { video.srcObject = null; video.style.display = 'none'; }
+  const placeholder = document.getElementById('cameraPlaceholder');
+  if(placeholder) placeholder.style.display = 'flex';
 }
 
 function doScan() {
@@ -2032,6 +2081,7 @@ function doScan() {
     }
 
     document.getElementById('step3').className = 'step done';
+    stopCamera();
     btn.textContent = 'Kembali ke Home';
     btn.disabled = false;
     btn.onclick = () => showTab('home');
