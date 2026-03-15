@@ -982,16 +982,20 @@ textarea.form-control{resize:vertical;min-height:80px;}
         <div style="color:rgba(255,255,255,.6);font-size:.73rem;margin-top:2px;">Shift NON SHIFT | 08:00 – 16:00</div>
       </div>
       <div class="settings-group">
-        <div class="settings-item" onclick="showNotif('Fitur edit profil dibuka','success')">
+        <div class="settings-item" onclick="openModal('editProfilModal')">
           <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="si-label">Edit Profil</span></div>
           <div class="si-right"><svg class="chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
-        <div class="settings-item" onclick="showNotif('Silakan posisikan wajah untuk registrasi','warn')">
-          <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><span class="si-label">Registrasi Wajah</span></div>
+        <div class="settings-item" onclick="openModal('registrasiWajahModal')">
+          <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+            <div><span class="si-label">Registrasi Wajah</span><div id="wajahStatus" style="font-size:.7rem;color:var(--subtext);margin-top:1px;">Belum diregistrasi</div></div>
+          </div>
           <div class="si-right"><svg class="chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
-        <div class="settings-item" onclick="showNotif('Fingerprint berhasil diperbarui','success')">
-          <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 0 0 8 11a4 4 0 1 1 8 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0 0 15.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 0 0 8 4.07"/></svg></div><span class="si-label">Kelola Fingerprint</span></div>
+        <div class="settings-item" onclick="openModal('fingerprintModal')">
+          <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 0 0 8 11a4 4 0 1 1 8 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0 0 15.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 0 0 8 4.07"/></svg></div>
+            <div><span class="si-label">Kelola Fingerprint</span><div id="fpStatus" style="font-size:.7rem;color:var(--subtext);margin-top:1px;">Belum diregistrasi</div></div>
+          </div>
           <div class="si-right"><svg class="chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
       </div>
@@ -1005,8 +1009,10 @@ textarea.form-control{resize:vertical;min-height:80px;}
           <button class="toggle on" onclick="this.classList.toggle('on')"></button>
         </div>
         <div class="settings-item">
-          <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span class="si-label">GPS Lokasi Kantor</span></div>
-          <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+          <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><span class="si-label">GPS Lokasi Kantor</span><div id="gpsStatusLabel" style="font-size:.7rem;color:var(--subtext);margin-top:1px;">Belum diset</div></div>
+          </div>
+          <button class="toggle on" id="gpsToggle" onclick="this.classList.toggle('on')"></button>
         </div>
       </div>
       <div class="settings-group">
@@ -1028,11 +1034,11 @@ textarea.form-control{resize:vertical;min-height:80px;}
           <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="si-label">Info Shift Kerja</span></div>
           <div class="si-right"><svg class="chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
-        <div class="settings-item" onclick="showNotif('Ganti password berhasil','success')">
+        <div class="settings-item" onclick="openModal('ubahPasswordModal')">
           <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><span class="si-label">Ubah Password</span></div>
           <div class="si-right"><svg class="chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
-        <div class="settings-item" onclick="showNotif('Laporan berhasil diexport','success')">
+        <div class="settings-item" onclick="exportLaporanKaryawan()">
           <div class="si-left"><div class="si-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><span class="si-label">Export Laporan</span></div>
           <div class="si-right"><svg class="chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
         </div>
@@ -1062,7 +1068,7 @@ textarea.form-control{resize:vertical;min-height:80px;}
             </div>
             <div style="text-align:right;">
               <div style="color:#94A3B8;font-size:.7rem;">Tahun</div>
-              <div style="color:#E2E8F0;font-size:.8rem;font-weight:600;">2025</div>
+              <div style="color:#E2E8F0;font-size:.8rem;font-weight:600;" id="devYear">2025</div>
             </div>
           </div>
           <div style="margin-top:12px;background:rgba(42,125,225,.2);border:1px solid rgba(42,125,225,.3);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
@@ -1150,11 +1156,13 @@ textarea.form-control{resize:vertical;min-height:80px;}
     </div>
     <div class="form-group">
       <label class="form-label">Upload Surat Dokter</label>
-      <div class="upload-zone" onclick="showNotif('File berhasil dipilih','success')">
+      <input type="file" id="sakitFileInput" accept="image/*,.pdf" style="display:none" onchange="handleSakitUpload(event)"/>
+      <div class="upload-zone" id="sakitUploadZone" onclick="document.getElementById('sakitFileInput').click()">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <p>Tap untuk upload surat dokter</p>
         <p style="font-size:.7rem;margin-top:3px">JPG, PNG, PDF (max 5MB)</p>
       </div>
+      <div id="sakitFilePreview" style="display:none;margin-top:10px;"></div>
     </div>
     <button class="btn-submit" onclick="submitForm('sakit')">Kirim Laporan Sakit</button>
     <button class="btn-cancel" onclick="closeModal('sakitModal')">Batal</button>
@@ -1185,10 +1193,12 @@ textarea.form-control{resize:vertical;min-height:80px;}
     </div>
     <div class="form-group">
       <label class="form-label">Upload Bukti (Opsional)</label>
-      <div class="upload-zone" onclick="showNotif('File berhasil dipilih','success')">
+      <input type="file" id="izinFileInput" accept="image/*,.pdf" style="display:none" onchange="handleGenericUpload(event,'izinFilePreview','izinUploadZone')"/>
+      <div class="upload-zone" id="izinUploadZone" onclick="document.getElementById('izinFileInput').click()">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <p>Tap untuk upload bukti</p>
       </div>
+      <div id="izinFilePreview" style="display:none;margin-top:10px;"></div>
     </div>
     <button class="btn-submit" onclick="submitForm('izin')">Ajukan Izin</button>
     <button class="btn-cancel" onclick="closeModal('izinModal')">Batal</button>
@@ -1228,7 +1238,7 @@ textarea.form-control{resize:vertical;min-height:80px;}
     <div class="modal-handle"></div>
     <div class="modal-title">⚡ Pengajuan Lembur</div>
     <div class="lembur-info">
-      <p>💡 Lembur akan dihitung sebagai tambahan penghasilan. Tarif lembur: <strong>Rp 75.000/jam</strong>. Minimal 1 jam.</p>
+      <p>💡 Lembur akan dihitung sebagai tambahan penghasilan. Tarif lembur: <strong id="lemburTarifInfo">Rp 75.000/jam</strong>. Minimal <span id="lemburMinInfo">1</span> jam.</p>
     </div>
     <div class="form-group">
       <label class="form-label">Tanggal Lembur</label>
@@ -1237,12 +1247,16 @@ textarea.form-control{resize:vertical;min-height:80px;}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
       <div class="form-group">
         <label class="form-label">Jam Mulai</label>
-        <input type="time" class="form-control" id="lemburStart" value="17:00"/>
+        <input type="time" class="form-control" id="lemburStart" value="17:00" onchange="hitungLembur()"/>
       </div>
       <div class="form-group">
         <label class="form-label">Jam Selesai</label>
-        <input type="time" class="form-control" id="lemburEnd" value="19:00"/>
+        <input type="time" class="form-control" id="lemburEnd" value="19:00" onchange="hitungLembur()"/>
       </div>
+    </div>
+    <div style="background:var(--card);border-radius:12px;padding:12px 14px;border:1px solid var(--border);margin-bottom:12px;">
+      <div style="font-size:.75rem;color:var(--subtext);margin-bottom:4px;">Perkiraan Honor Lembur</div>
+      <div id="lemburPreviewHonor" style="font-size:.88rem;font-weight:700;color:#166534;">✅ 2.0 jam × Rp 75.000 = Rp 150.000</div>
     </div>
     <div class="form-group">
       <label class="form-label">Alasan / Pekerjaan</label>
@@ -1459,6 +1473,7 @@ textarea.form-control{resize:vertical;min-height:80px;}
     <button class="tab-pill"        id="adm-tab-approval" onclick="adminTab('approval')">✅ Approval</button>
     <button class="tab-pill"        id="adm-tab-karyawan" onclick="adminTab('karyawan')">👥 Karyawan</button>
     <button class="tab-pill"        id="adm-tab-mutasi"  onclick="adminTab('mutasi')">🔄 Mutasi</button>
+    <button class="tab-pill"        id="adm-tab-setting" onclick="adminTab('setting')">⚙️ Setting</button>
   </div>
 
   <div style="flex:1;overflow-y:auto;padding:16px;" id="adminContent">
@@ -1583,6 +1598,139 @@ textarea.form-control{resize:vertical;min-height:80px;}
     <button class="btn-submit" onclick="submitEditKaryawan()">Simpan Perubahan</button>
     <button class="btn-submit" style="background:linear-gradient(135deg,#EF4444,#DC2626);box-shadow:0 4px 16px rgba(239,68,68,.3);margin-top:0;" onclick="confirmDeleteKaryawan()">🗑 Hapus Karyawan</button>
     <button class="btn-cancel" onclick="closeModal('editKaryawanModal')">Batal</button>
+  </div>
+</div>
+
+<!-- ===== MODAL EDIT PROFIL ===== -->
+<div class="modal-overlay" id="editProfilModal" onclick="if(event.target===this)closeModal('editProfilModal')">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">✏️ Edit Profil</div>
+    <div style="text-align:center;margin-bottom:16px;">
+      <div id="editProfilAvatarPreview" style="width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--accent),#1A6DD1);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:1.8rem;font-weight:800;color:#fff;cursor:pointer;position:relative;overflow:hidden;" onclick="document.getElementById('fotoProfilInput').click()">
+        <span id="editProfilAvatarText">AF</span>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.4);font-size:.6rem;color:#fff;padding:3px;text-align:center;">GANTI</div>
+      </div>
+      <input type="file" id="fotoProfilInput" accept="image/*" style="display:none" onchange="handleFotoProfilUpload(event)"/>
+      <div style="font-size:.72rem;color:var(--subtext);">Tap foto untuk mengganti</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Nama Lengkap</label>
+      <input type="text" class="form-control" id="editNama" placeholder="Nama lengkap Anda"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" id="editEmail" placeholder="email@perusahaan.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">No. HP / WhatsApp</label>
+      <input type="tel" class="form-control" id="editPhone" placeholder="08xxxxxxxxxx"/>
+    </div>
+    <button class="btn-submit" onclick="simpanEditProfil()">💾 Simpan Perubahan</button>
+    <button class="btn-cancel" onclick="closeModal('editProfilModal')">Batal</button>
+  </div>
+</div>
+
+<!-- ===== MODAL UBAH PASSWORD ===== -->
+<div class="modal-overlay" id="ubahPasswordModal" onclick="if(event.target===this)closeModal('ubahPasswordModal')">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🔐 Ubah Password</div>
+    <div class="form-group">
+      <label class="form-label">Password Lama</label>
+      <input type="password" class="form-control" id="passLama" placeholder="Password saat ini"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password Baru</label>
+      <input type="password" class="form-control" id="passBaru" placeholder="Password baru (min 6 karakter)"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Konfirmasi Password Baru</label>
+      <input type="password" class="form-control" id="passKonfirm" placeholder="Ulangi password baru"/>
+    </div>
+    <button class="btn-submit" onclick="ubahPassword()">🔐 Ubah Password</button>
+    <button class="btn-cancel" onclick="closeModal('ubahPasswordModal')">Batal</button>
+  </div>
+</div>
+
+<!-- ===== MODAL REGISTRASI WAJAH ===== -->
+<div class="modal-overlay" id="registrasiWajahModal" onclick="if(event.target===this)closeRegWajah()">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">👁️ Registrasi Wajah</div>
+    <div id="regWajahContent">
+      <p style="font-size:.84rem;color:var(--subtext);margin-bottom:14px;line-height:1.6;">Ambil foto wajah Anda untuk digunakan saat absensi. Pastikan pencahayaan cukup dan wajah terlihat jelas.</p>
+      <div style="width:220px;height:220px;border-radius:20px;background:#0a0a1a;margin:0 auto 16px;position:relative;overflow:hidden;border:2px solid var(--accent);">
+        <video id="regWajahVideo" autoplay playsinline style="width:100%;height:100%;object-fit:cover;display:none;"></video>
+        <canvas id="regWajahCanvas" style="display:none;width:100%;height:100%;object-fit:cover;"></canvas>
+        <div id="regWajahPlaceholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+          <svg style="width:48px;stroke:var(--subtext);fill:none;stroke-width:1.5" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <div style="font-size:.75rem;color:var(--subtext);">Kamera belum aktif</div>
+        </div>
+        <div id="regWajahOverlay" style="position:absolute;inset:0;pointer-events:none;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:140px;border-radius:50%;border:2px dashed rgba(142,216,255,.6);"></div>
+        </div>
+        <div id="regWajahSuccess" style="display:none;position:absolute;inset:0;background:rgba(34,197,94,.2);align-items:center;justify-content:center;">
+          <svg style="width:60px;stroke:#22C55E;fill:none;stroke-width:2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+      </div>
+      <div id="regWajahFotoPreview" style="display:none;text-align:center;margin-bottom:10px;">
+        <img id="regWajahImg" style="width:120px;height:120px;border-radius:16px;object-fit:cover;border:3px solid #22C55E;" src=""/>
+        <div style="font-size:.75rem;color:#22C55E;margin-top:4px;font-weight:600;">✅ Foto berhasil diambil</div>
+      </div>
+      <div id="regWajahBtnArea" style="display:flex;flex-direction:column;gap:8px;">
+        <button id="btnMulaiKameraReg" class="btn-submit" onclick="mulaiKameraRegistrasi()">📷 Aktifkan Kamera</button>
+        <button id="btnAmbilFotoReg" class="btn-submit" style="display:none;background:linear-gradient(135deg,#22C55E,#16A34A);box-shadow:0 4px 16px rgba(34,197,94,.35);" onclick="ambilFotoRegistrasi()">📸 Ambil Foto</button>
+        <button id="btnSimpanWajah" class="btn-submit" style="display:none;" onclick="simpanRegistrasiWajah()">💾 Simpan Wajah</button>
+        <button id="btnUlangiReg" class="btn-cancel" style="display:none;" onclick="ulangiRegistrasi()">🔄 Ambil Ulang</button>
+      </div>
+      <div id="regWajahTerdaftar" style="display:none;background:#DCFCE7;border-radius:12px;padding:12px;margin-top:10px;text-align:center;">
+        <div style="font-size:.85rem;font-weight:700;color:#166534;">✅ Wajah sudah terdaftar</div>
+        <button onclick="hapusDataWajah()" style="margin-top:8px;padding:8px 16px;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:8px;font-family:var(--font);font-size:.78rem;font-weight:700;cursor:pointer;">🗑 Hapus Data Wajah</button>
+      </div>
+    </div>
+    <button class="btn-cancel" style="margin-top:8px;" onclick="closeRegWajah()">Tutup</button>
+  </div>
+</div>
+
+<!-- ===== MODAL FINGERPRINT ===== -->
+<div class="modal-overlay" id="fingerprintModal" onclick="if(event.target===this)closeModal('fingerprintModal')">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🔏 Kelola Fingerprint (PIN)</div>
+    <p style="font-size:.82rem;color:var(--subtext);margin-bottom:16px;line-height:1.6;">Gunakan PIN 6 digit sebagai pengganti fingerprint untuk login cepat.</p>
+    <div id="fpTerdaftar" style="display:none;background:#DCFCE7;border-radius:12px;padding:14px;margin-bottom:14px;text-align:center;">
+      <div style="font-size:.88rem;font-weight:700;color:#166534;">✅ PIN Fingerprint sudah terdaftar</div>
+      <div style="font-size:.75rem;color:#166534;margin-top:4px;">PIN tersimpan di perangkat ini</div>
+      <button onclick="hapusFP()" style="margin-top:10px;padding:8px 16px;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:8px;font-family:var(--font);font-size:.78rem;font-weight:700;cursor:pointer;">🗑 Hapus PIN</button>
+    </div>
+    <div id="fpForm">
+      <div class="form-group">
+        <label class="form-label">PIN Baru (6 digit)</label>
+        <input type="password" class="form-control" id="fpPin" placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Konfirmasi PIN</label>
+        <input type="password" class="form-control" id="fpPinKonfirm" placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"/>
+      </div>
+      <button class="btn-submit" onclick="simpanFP()">💾 Daftarkan PIN</button>
+    </div>
+    <button class="btn-cancel" onclick="closeModal('fingerprintModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ===== MODAL GPS VALIDASI (saat scan) ===== -->
+<div class="modal-overlay" id="gpsValidasiModal">
+  <div class="modal-box" style="border-radius:24px;max-height:fit-content;">
+    <div class="modal-handle"></div>
+    <div style="text-align:center;padding:10px 0 16px;">
+      <div id="gpsValidasiIcon" style="font-size:3rem;margin-bottom:10px;">📍</div>
+      <div id="gpsValidasiTitle" style="font-size:1.1rem;font-weight:800;">Memeriksa Lokasi...</div>
+      <div id="gpsValidasiSub" style="font-size:.82rem;color:var(--subtext);margin-top:6px;line-height:1.5;"></div>
+      <div id="gpsValidasiDetail" style="font-size:.75rem;color:var(--subtext);margin-top:8px;font-family:var(--mono);"></div>
+    </div>
+    <button id="gpsValidasiBtn" class="btn-submit" style="display:none;" onclick="closeModal('gpsValidasiModal')">Tutup</button>
+    <button id="gpsLanjutBtn" class="btn-submit" style="display:none;background:linear-gradient(135deg,#22C55E,#16A34A);box-shadow:0 4px 16px rgba(34,197,94,.35);" onclick="lanjutScanSetelahGPS()">✅ Lanjut Absen</button>
   </div>
 </div>
 
@@ -1762,6 +1910,10 @@ const historyData = [
 
 // ===== INIT =====
 window.onload = () => {
+  // Tahun otomatis
+  const devYear = document.getElementById('devYear');
+  if(devYear) devYear.textContent = new Date().getFullYear();
+
   setTimeout(() => {
     document.getElementById('splash').classList.add('hide');
   }, 2000);
@@ -1779,6 +1931,14 @@ window.onload = () => {
   const med = document.getElementById('mutasiEndDate');
   if(msd) msd.value = todayMs;
   if(med) med.value = nextWeek;
+
+  // Load data dari localStorage
+  loadProfilFromStorage();
+  loadFPStatus();
+  loadWajahStatus();
+  loadAbsensiHariIni();
+  loadGPSSetting();
+  requestGPSPermission();
 };
 
 function setTodayDate() {
@@ -1816,7 +1976,8 @@ function initChart() {
     g.className = 'bar-group';
     g.style.cssText = 'flex:1;display:flex;align-items:flex-end;justify-content:center;gap:1px;';
     const colors = ['#2A7DE1','#F59E0B','#EF4444','#8B5CF6'];
-    const vals = [d.hadir, d.izin+1, d.sakit+1, d.cuti+1];
+    // BUGFIX: gunakan nilai asli tanpa +1 agar chart akurat; tambah min 1px agar bar tetap terlihat jika ada data
+    const vals = [d.hadir, d.izin, d.sakit, d.cuti];
     vals.forEach((v,i) => {
       const b = document.createElement('div');
       b.className = 'bar';
@@ -1872,6 +2033,10 @@ function initSubmissions() {
   });
 }
 
+// ===== OWNER & ADMIN CREDENTIALS (harus didefinisikan sebelum doLogin) =====
+const OWNER_CREDENTIALS = { id:'OWNER001', pass:'owner123' };
+// (ADMIN_CREDENTIALS didefinisikan di bawah bersama data admin)
+
 // ===== LOGIN =====
 function doLogin() {
   const id   = document.getElementById('loginId').value.trim();
@@ -1914,25 +2079,43 @@ function doLogin() {
   }
 
   // Employee login
-  if((id === 'EMP001' || id === 'ahmad@perusahaan.com') && pw === '123456') {
+  if((id === 'EMP001' || id === 'ahmad@perusahaan.com') && pw === (profilData.password || '123456')) {
+    // Validasi wajib pilih divisi untuk karyawan
+    if(!divVal) {
+      err.style.display = 'block';
+      err.textContent = 'Silakan pilih divisi Anda terlebih dahulu';
+      return;
+    }
     err.style.display = 'none';
-    if(divVal) currentDivisi = divVal;
+    currentDivisi = divVal;
     updateProfileUI(currentDivisi);
     showNotif('Login berhasil! Selamat datang 👋','success');
     setTimeout(() => {
       document.getElementById('loginScreen').classList.remove('active');
       document.getElementById('mainApp').classList.add('active');
+      // Update tarif info di modal lembur
+      const tarifInfo = document.getElementById('lemburTarifInfo');
+      const minInfo = document.getElementById('lemburMinInfo');
+      if(tarifInfo) tarifInfo.textContent = `Rp ${adminLemburSetting.tarif.toLocaleString('id')}/jam`;
+      if(minInfo) minInfo.textContent = adminLemburSetting.minJam;
     }, 800);
     return;
   }
 
   err.style.display = 'block';
+  err.textContent = 'ID karyawan atau password salah';
 }
 
 function doFingerprintLogin() {
+  // BUGFIX: validasi divisi dipilih sebelum fingerprint login
+  const divVal = document.getElementById('loginDivisi').value;
+  const id = document.getElementById('loginId').value.trim();
+  // Fingerprint hanya untuk karyawan biasa (bukan admin/owner)
+  if(id === ADMIN_CREDENTIALS.id || id === OWNER_CREDENTIALS.id) {
+    showNotif('Fingerprint hanya untuk login karyawan','warn'); return;
+  }
   showNotif('Memindai fingerprint...','');
   setTimeout(() => {
-    const divVal = document.getElementById('loginDivisi').value;
     if(divVal) currentDivisi = divVal;
     updateProfileUI(currentDivisi);
     showNotif('Fingerprint dikenali! Login berhasil','success');
@@ -1945,6 +2128,26 @@ function doFingerprintLogin() {
 
 function doLogout() {
   if(confirm('Yakin ingin keluar dari akun?')) {
+    // BUGFIX: reset semua state absensi agar sesi bersih saat login berikutnya
+    state.checkedIn    = false;
+    state.checkedOut   = false;
+    state.checkInTime  = '';
+    state.checkOutTime = '';
+    state.scanDone     = false;
+    if(state.breakInterval) clearInterval(state.breakInterval);
+    state.breakActive  = false;
+    state.breakTimer   = 0;
+    // Reset tampilan absen
+    const timeIn  = document.getElementById('timeIn');
+    const timeOut = document.getElementById('timeOut');
+    if(timeIn)  timeIn.textContent  = '--:--';
+    if(timeOut) timeOut.textContent = '--:--';
+    const btnMasuk  = document.getElementById('btnMasuk');
+    const btnPulang = document.getElementById('btnPulang');
+    if(btnMasuk)  { btnMasuk.classList.remove('done','disabled'); }
+    if(btnPulang) { btnPulang.classList.add('disabled'); btnPulang.classList.remove('done'); }
+    const badge = document.getElementById('statusBadge');
+    if(badge) { badge.className = 'status-badge belum'; badge.innerHTML = '<span class="dot"></span> Belum Absen'; }
     document.getElementById('mainApp').classList.remove('active');
     document.getElementById('loginScreen').classList.add('active');
     showNotif('Berhasil keluar dari akun','');
@@ -2060,16 +2263,19 @@ function doScan() {
       state.checkInTime = time;
       document.getElementById('timeIn').textContent = time;
       document.getElementById('btnMasuk').classList.add('done','disabled');
-      document.getElementById('btnMasuk').classList.remove('disabled');
+      // BUGFIX: hapus baris classList.remove('disabled') yang salah — btnMasuk harus tetap disabled
       document.getElementById('btnPulang').classList.remove('disabled');
       const badge = document.getElementById('statusBadge');
       badge.className = 'status-badge hadir';
       badge.innerHTML = '<span class="dot"></span> Sudah Absen Masuk';
 
-      const lateMsg = isLate ? `⚠️ Anda terlambat ${now.getMinutes()} menit hari ini.` : '✅ Tepat Waktu! Selamat bekerja.';
+      // BUGFIX: hitung menit terlambat dengan benar (selisih dari jam 08:00, bukan now.getMinutes())
+      const lateMinutes = (now.getHours() - shiftHour) * 60 + now.getMinutes();
+      const lateMsg = isLate ? `⚠️ Anda terlambat ${lateMinutes} menit hari ini.` : '✅ Tepat Waktu! Selamat bekerja.';
       document.getElementById('scanStatusTitle').textContent = '✅ Absensi Masuk Berhasil!';
       document.getElementById('scanStatusSub').textContent = `${time} · ${lateMsg}`;
-      showNotif(isLate ? `Terlambat ${now.getMinutes()} menit hari ini`:'Absensi masuk berhasil!', isLate?'warn':'success');
+      showNotif(isLate ? `Terlambat ${lateMinutes} menit hari ini`:'Absensi masuk berhasil!', isLate?'warn':'success');
+      simpanAbsensiKeStorage('masuk', time);
     } else {
       state.checkedOut = true;
       state.checkOutTime = time;
@@ -2078,6 +2284,10 @@ function doScan() {
       document.getElementById('scanStatusTitle').textContent = '✅ Absensi Pulang Berhasil!';
       document.getElementById('scanStatusSub').textContent = `${time} · Sampai jumpa besok! 👋`;
       showNotif('Absensi pulang berhasil! Sampai jumpa','success');
+      simpanAbsensiKeStorage('pulang', time);
+      // BUGFIX: nonaktifkan tombol scan di bottom nav setelah absen pulang selesai
+      const navScan = document.getElementById('nav-scan');
+      if(navScan) { navScan.style.pointerEvents = 'none'; navScan.style.opacity = '0.4'; }
     }
 
     document.getElementById('step3').className = 'step done';
@@ -2151,7 +2361,14 @@ function calcCuti() {
   const e = document.getElementById('cutiEnd').value;
   if(s && e) {
     const diff = Math.round((new Date(e)-new Date(s))/(1000*60*60*24))+1;
-    document.getElementById('cutiDays').textContent = diff > 0 ? `${diff} hari` : '0 hari';
+    // BUGFIX: validasi jika tanggal selesai lebih awal dari tanggal mulai
+    if(diff <= 0) {
+      document.getElementById('cutiDays').textContent = '⚠️ Tanggal tidak valid';
+      document.getElementById('cutiDays').style.color = 'var(--danger)';
+    } else {
+      document.getElementById('cutiDays').textContent = `${diff} hari`;
+      document.getElementById('cutiDays').style.color = '';
+    }
   }
 }
 
@@ -2329,16 +2546,19 @@ function loadSlip(period, btn) {
 }
 
 // ===== NOTIF =====
+let _notifTimer = null;
 function showNotif(msg, type='success') {
   const el = document.getElementById('notif');
+  // BUGFIX: clear timer sebelumnya agar tidak tumpang tindih
+  if(_notifTimer) { clearTimeout(_notifTimer); _notifTimer = null; }
   el.textContent = msg;
   el.className = type;
   el.style.display = 'block';
-  setTimeout(() => { el.style.display = 'none'; }, 3000);
+  _notifTimer = setTimeout(() => { el.style.display = 'none'; _notifTimer = null; }, 3000);
 }
 
 // ===== OWNER =====
-const OWNER_CREDENTIALS = { id:'OWNER001', pass:'owner123' };
+// OWNER_CREDENTIALS sudah dideklarasikan di atas sebelum doLogin
 let currentOwnerTab = 'ringkasan';
 
 function fillOwnerLogin() {
@@ -3054,6 +3274,690 @@ if(isIOS && !isInStandaloneMode) {
 function dismissInstall() {
   document.getElementById('installBanner').classList.remove('show');
 }
+
+// ============================================================
+// ===== FITUR BARU: EDIT PROFIL =====
+// ============================================================
+let profilData = {
+  nama: 'Ahmad Fauzi',
+  email: 'ahmad@perusahaan.com',
+  phone: '081234567890',
+  foto: null,
+  password: '123456'
+};
+
+function loadProfilFromStorage() {
+  const saved = localStorage.getItem('profilData');
+  if (saved) {
+    profilData = JSON.parse(saved);
+    applyProfilToUI();
+  }
+}
+
+function applyProfilToUI() {
+  const inisial = profilData.nama.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  // Profile card di home
+  const pName = document.getElementById('profileName');
+  if (pName) pName.textContent = profilData.nama;
+  const pAvatar = document.getElementById('profileAvatar');
+  if (pAvatar) {
+    if (profilData.foto) {
+      pAvatar.innerHTML = `<img src="${profilData.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">`;
+    } else {
+      pAvatar.textContent = inisial;
+    }
+  }
+  // Settings
+  const sName = document.getElementById('settingsName');
+  if (sName) sName.textContent = profilData.nama;
+  const sAvatar = document.getElementById('settingsAvatar');
+  if (sAvatar) {
+    if (profilData.foto) {
+      sAvatar.innerHTML = `<img src="${profilData.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:18px;">`;
+    } else {
+      sAvatar.textContent = inisial;
+    }
+  }
+  // Edit profil modal preview
+  const epText = document.getElementById('editProfilAvatarText');
+  const epPreview = document.getElementById('editProfilAvatarPreview');
+  if (epText) epText.textContent = inisial;
+  if (epPreview && profilData.foto) {
+    epPreview.innerHTML = `<img src="${profilData.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.4);font-size:.6rem;color:#fff;padding:3px;text-align:center;">GANTI</div>`;
+    epPreview.onclick = () => document.getElementById('fotoProfilInput').click();
+  }
+}
+
+function openEditProfil() {
+  document.getElementById('editNama').value = profilData.nama;
+  document.getElementById('editEmail').value = profilData.email;
+  document.getElementById('editPhone').value = profilData.phone || '';
+  applyProfilToUI();
+  openModal('editProfilModal');
+}
+
+function handleFotoProfilUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showNotif('Ukuran foto maksimal 5MB', 'danger'); return; }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    profilData.foto = e.target.result;
+    const epPreview = document.getElementById('editProfilAvatarPreview');
+    if (epPreview) {
+      epPreview.innerHTML = `<img src="${profilData.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:20px;"><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.4);font-size:.6rem;color:#fff;padding:3px;text-align:center;">GANTI</div>`;
+      epPreview.onclick = () => document.getElementById('fotoProfilInput').click();
+    }
+    showNotif('Foto dipilih, klik Simpan untuk menyimpan', 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+function simpanEditProfil() {
+  const nama = document.getElementById('editNama').value.trim();
+  const email = document.getElementById('editEmail').value.trim();
+  const phone = document.getElementById('editPhone').value.trim();
+  if (!nama) { showNotif('Nama tidak boleh kosong', 'danger'); return; }
+  if (!email) { showNotif('Email tidak boleh kosong', 'danger'); return; }
+  profilData.nama = nama;
+  profilData.email = email;
+  profilData.phone = phone;
+  localStorage.setItem('profilData', JSON.stringify(profilData));
+  applyProfilToUI();
+  closeModal('editProfilModal');
+  showNotif('Profil berhasil disimpan ✅', 'success');
+}
+
+function exportLaporanKaryawan() {
+  const data = historyData.map(d =>
+    `${d.date} ${d.mo} | Masuk: ${d.in} | Pulang: ${d.out} | Status: ${d.type} ${d.status !== '-' ? '(' + d.status + ')' : ''}`
+  ).join('\n');
+  const blob = new Blob([`LAPORAN ABSENSI - ${profilData.nama}\n${'='.repeat(40)}\n${data}`], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'laporan_absensi.txt'; a.click();
+  URL.revokeObjectURL(url);
+  showNotif('Laporan berhasil diexport ✅', 'success');
+}
+
+// ============================================================
+// ===== FITUR BARU: UBAH PASSWORD =====
+// ============================================================
+function ubahPassword() {
+  const lama = document.getElementById('passLama').value;
+  const baru = document.getElementById('passBaru').value;
+  const konfirm = document.getElementById('passKonfirm').value;
+  if (!lama || !baru || !konfirm) { showNotif('Semua field wajib diisi', 'danger'); return; }
+  if (lama !== profilData.password) { showNotif('Password lama salah', 'danger'); return; }
+  if (baru.length < 6) { showNotif('Password baru minimal 6 karakter', 'danger'); return; }
+  if (baru !== konfirm) { showNotif('Konfirmasi password tidak cocok', 'danger'); return; }
+  profilData.password = baru;
+  localStorage.setItem('profilData', JSON.stringify(profilData));
+  document.getElementById('passLama').value = '';
+  document.getElementById('passBaru').value = '';
+  document.getElementById('passKonfirm').value = '';
+  closeModal('ubahPasswordModal');
+  showNotif('Password berhasil diubah 🔐', 'success');
+}
+
+// ============================================================
+// ===== FITUR BARU: FINGERPRINT (PIN 6 digit) =====
+// ============================================================
+function loadFPStatus() {
+  const fp = localStorage.getItem('fpPin');
+  const fpStatus = document.getElementById('fpStatus');
+  const fpTerdaftar = document.getElementById('fpTerdaftar');
+  const fpForm = document.getElementById('fpForm');
+  if (fp) {
+    if (fpStatus) fpStatus.textContent = '✅ PIN terdaftar';
+    if (fpTerdaftar) fpTerdaftar.style.display = 'block';
+    if (fpForm) fpForm.style.display = 'none';
+  } else {
+    if (fpStatus) fpStatus.textContent = 'Belum diregistrasi';
+    if (fpTerdaftar) fpTerdaftar.style.display = 'none';
+    if (fpForm) fpForm.style.display = 'block';
+  }
+}
+
+function simpanFP() {
+  const pin = document.getElementById('fpPin').value;
+  const konfirm = document.getElementById('fpPinKonfirm').value;
+  if (pin.length !== 6 || !/^\d+$/.test(pin)) { showNotif('PIN harus 6 digit angka', 'danger'); return; }
+  if (pin !== konfirm) { showNotif('Konfirmasi PIN tidak cocok', 'danger'); return; }
+  localStorage.setItem('fpPin', pin);
+  document.getElementById('fpPin').value = '';
+  document.getElementById('fpPinKonfirm').value = '';
+  loadFPStatus();
+  showNotif('PIN Fingerprint berhasil didaftarkan ✅', 'success');
+}
+
+function hapusFP() {
+  if (!confirm('Hapus PIN fingerprint?')) return;
+  localStorage.removeItem('fpPin');
+  loadFPStatus();
+  showNotif('PIN fingerprint dihapus', 'warn');
+}
+
+// Override doFingerprintLogin untuk validasi PIN nyata
+function doFingerprintLogin() {
+  const divVal = document.getElementById('loginDivisi').value;
+  const id = document.getElementById('loginId').value.trim();
+  if (id === ADMIN_CREDENTIALS.id || id === OWNER_CREDENTIALS.id) {
+    showNotif('Fingerprint hanya untuk login karyawan', 'warn'); return;
+  }
+  const savedPin = localStorage.getItem('fpPin');
+  if (!savedPin) { showNotif('PIN belum diregistrasi. Daftar dulu di Pengaturan > Kelola Fingerprint', 'warn'); return; }
+  const pin = prompt('Masukkan PIN Fingerprint (6 digit):');
+  if (!pin) return;
+  if (pin !== savedPin) { showNotif('PIN salah', 'danger'); return; }
+  if (divVal) currentDivisi = divVal;
+  updateProfileUI(currentDivisi);
+  showNotif('PIN cocok! Login berhasil ✅', 'success');
+  setTimeout(() => {
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('mainApp').classList.add('active');
+  }, 600);
+}
+
+// ============================================================
+// ===== FITUR BARU: REGISTRASI WAJAH =====
+// ============================================================
+let regWajahStream = null;
+let regWajahFotoData = null;
+
+function loadWajahStatus() {
+  const wajah = localStorage.getItem('wajahData');
+  const wajahStatus = document.getElementById('wajahStatus');
+  if (wajah) {
+    if (wajahStatus) wajahStatus.textContent = '✅ Sudah diregistrasi';
+  } else {
+    if (wajahStatus) wajahStatus.textContent = 'Belum diregistrasi';
+  }
+}
+
+function openModal_registrasiWajah() {
+  const wajah = localStorage.getItem('wajahData');
+  const terdaftar = document.getElementById('regWajahTerdaftar');
+  const btnMulai = document.getElementById('btnMulaiKameraReg');
+  if (wajah) {
+    if (terdaftar) terdaftar.style.display = 'block';
+    if (btnMulai) btnMulai.style.display = 'none';
+  } else {
+    if (terdaftar) terdaftar.style.display = 'none';
+    if (btnMulai) btnMulai.style.display = 'block';
+  }
+  openModal('registrasiWajahModal');
+}
+
+async function mulaiKameraRegistrasi() {
+  const video = document.getElementById('regWajahVideo');
+  const placeholder = document.getElementById('regWajahPlaceholder');
+  const btnMulai = document.getElementById('btnMulaiKameraReg');
+  const btnAmbil = document.getElementById('btnAmbilFotoReg');
+  try {
+    regWajahStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+    video.srcObject = regWajahStream;
+    video.style.display = 'block';
+    placeholder.style.display = 'none';
+    btnMulai.style.display = 'none';
+    btnAmbil.style.display = 'block';
+  } catch (e) {
+    showNotif('Izinkan akses kamera di browser', 'warn');
+  }
+}
+
+function ambilFotoRegistrasi() {
+  const video = document.getElementById('regWajahVideo');
+  const canvas = document.getElementById('regWajahCanvas');
+  const img = document.getElementById('regWajahImg');
+  const preview = document.getElementById('regWajahFotoPreview');
+  const btnAmbil = document.getElementById('btnAmbilFotoReg');
+  const btnSimpan = document.getElementById('btnSimpanWajah');
+  const btnUlangi = document.getElementById('btnUlangiReg');
+  canvas.width = 220; canvas.height = 220;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, 220, 220);
+  regWajahFotoData = canvas.toDataURL('image/jpeg', 0.8);
+  img.src = regWajahFotoData;
+  preview.style.display = 'block';
+  video.style.display = 'none';
+  btnAmbil.style.display = 'none';
+  btnSimpan.style.display = 'block';
+  btnUlangi.style.display = 'block';
+  if (regWajahStream) { regWajahStream.getTracks().forEach(t => t.stop()); regWajahStream = null; }
+}
+
+function ulangiRegistrasi() {
+  document.getElementById('regWajahFotoPreview').style.display = 'none';
+  document.getElementById('btnSimpanWajah').style.display = 'none';
+  document.getElementById('btnUlangiReg').style.display = 'none';
+  document.getElementById('btnMulaiKameraReg').style.display = 'block';
+  regWajahFotoData = null;
+}
+
+function simpanRegistrasiWajah() {
+  if (!regWajahFotoData) { showNotif('Ambil foto dulu', 'warn'); return; }
+  localStorage.setItem('wajahData', regWajahFotoData);
+  loadWajahStatus();
+  document.getElementById('regWajahTerdaftar').style.display = 'block';
+  document.getElementById('btnSimpanWajah').style.display = 'none';
+  document.getElementById('btnUlangiReg').style.display = 'none';
+  document.getElementById('regWajahFotoPreview').style.display = 'none';
+  document.getElementById('regWajahSuccess').style.display = 'flex';
+  setTimeout(() => { document.getElementById('regWajahSuccess').style.display = 'none'; }, 2000);
+  showNotif('Data wajah berhasil disimpan ✅', 'success');
+}
+
+function hapusDataWajah() {
+  if (!confirm('Hapus data wajah yang tersimpan?')) return;
+  localStorage.removeItem('wajahData');
+  loadWajahStatus();
+  document.getElementById('regWajahTerdaftar').style.display = 'none';
+  document.getElementById('btnMulaiKameraReg').style.display = 'block';
+  showNotif('Data wajah dihapus', 'warn');
+}
+
+function closeRegWajah() {
+  if (regWajahStream) { regWajahStream.getTracks().forEach(t => t.stop()); regWajahStream = null; }
+  closeModal('registrasiWajahModal');
+}
+
+// Override openModal untuk registrasi wajah
+const _origOpenModal = openModal;
+function openModal(id) {
+  if (id === 'registrasiWajahModal') { openModal_registrasiWajah(); return; }
+  if (id === 'editProfilModal') { openEditProfil(); return; }
+  _origOpenModal(id);
+}
+
+// ============================================================
+// ===== FITUR BARU: GPS LOKASI =====
+// ============================================================
+let userLocation = null;
+let officeLocation = null;
+let officeRadius = 100;
+let gpsReady = false;
+let pendingScanAfterGPS = false;
+
+function loadGPSSetting() {
+  const saved = localStorage.getItem('officeLocation');
+  if (saved) {
+    officeLocation = JSON.parse(saved);
+    const lbl = document.getElementById('gpsStatusLabel');
+    if (lbl) lbl.textContent = `📍 ${officeLocation.lat.toFixed(5)}, ${officeLocation.lng.toFixed(5)} · R=${officeLocation.radius}m`;
+  }
+  const savedRadius = localStorage.getItem('officeRadius');
+  if (savedRadius) officeRadius = parseInt(savedRadius);
+}
+
+function requestGPSPermission() {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      gpsReady = true;
+    },
+    () => { gpsReady = false; },
+    { timeout: 10000 }
+  );
+}
+
+function getDistanceMeters(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function cekLokasiSebelumScan(type, callback) {
+  const gpsToggle = document.getElementById('gpsToggle');
+  const gpsAktif = gpsToggle && gpsToggle.classList.contains('on');
+
+  // Jika GPS tidak aktif, langsung lanjut
+  if (!gpsAktif || !officeLocation) {
+    callback(true, null);
+    return;
+  }
+
+  openModal('gpsValidasiModal');
+  document.getElementById('gpsValidasiIcon').textContent = '📍';
+  document.getElementById('gpsValidasiTitle').textContent = 'Memeriksa Lokasi...';
+  document.getElementById('gpsValidasiSub').textContent = 'Sedang mendeteksi posisi Anda...';
+  document.getElementById('gpsValidasiDetail').textContent = '';
+  document.getElementById('gpsValidasiBtn').style.display = 'none';
+  document.getElementById('gpsLanjutBtn').style.display = 'none';
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      const dist = Math.round(getDistanceMeters(userLocation.lat, userLocation.lng, officeLocation.lat, officeLocation.lng));
+      const dalamRadius = dist <= officeLocation.radius;
+      document.getElementById('gpsValidasiDetail').textContent = `Jarak dari kantor: ${dist}m (Radius: ${officeLocation.radius}m)`;
+      if (dalamRadius) {
+        document.getElementById('gpsValidasiIcon').textContent = '✅';
+        document.getElementById('gpsValidasiTitle').textContent = 'Lokasi Valid!';
+        document.getElementById('gpsValidasiSub').textContent = `Anda berada dalam radius kantor (${dist}m).`;
+        document.getElementById('gpsLanjutBtn').style.display = 'block';
+        pendingScanAfterGPS = true;
+      } else {
+        document.getElementById('gpsValidasiIcon').textContent = '🚫';
+        document.getElementById('gpsValidasiTitle').textContent = 'Di Luar Area Kantor';
+        document.getElementById('gpsValidasiSub').textContent = `Anda berada ${dist}m dari kantor. Maksimal radius ${officeLocation.radius}m. Absensi tidak dapat dilakukan.`;
+        document.getElementById('gpsValidasiBtn').style.display = 'block';
+        callback(false, dist);
+      }
+    },
+    () => {
+      document.getElementById('gpsValidasiIcon').textContent = '⚠️';
+      document.getElementById('gpsValidasiTitle').textContent = 'GPS Tidak Tersedia';
+      document.getElementById('gpsValidasiSub').textContent = 'Tidak dapat mendeteksi lokasi. Izinkan akses GPS atau lanjutkan manual.';
+      document.getElementById('gpsLanjutBtn').style.display = 'block';
+      document.getElementById('gpsLanjutBtn').textContent = '⚠️ Lanjut Tanpa GPS';
+      pendingScanAfterGPS = true;
+    },
+    { timeout: 8000 }
+  );
+}
+
+let _pendingScanType = 'masuk';
+function lanjutScanSetelahGPS() {
+  closeModal('gpsValidasiModal');
+  pendingScanAfterGPS = false;
+  // Lanjutkan ke scan setelah GPS valid
+  _doOpenScan(_pendingScanType);
+}
+
+// Override openScan untuk tambah GPS check
+function openScan(type) {
+  _pendingScanType = type;
+  cekLokasiSebelumScan(type, (ok, dist) => {
+    if (ok) _doOpenScan(type);
+  });
+}
+
+function _doOpenScan(type) {
+  state.scanType = type;
+  state.scanDone = false;
+  document.getElementById('scanTitle').textContent = type === 'masuk' ? '🔐 Absensi Masuk' : '🔓 Absensi Pulang';
+  document.getElementById('scanStatusTitle').textContent = 'Posisikan Wajah Anda';
+  document.getElementById('scanStatusSub').textContent = 'Pastikan wajah berada dalam frame dan cahaya cukup';
+  document.getElementById('scanSuccessEl').style.display = 'none';
+  document.getElementById('scanLineEl').style.display = 'block';
+  document.getElementById('btnScanAction').textContent = 'Mulai Scan Wajah';
+  document.getElementById('btnScanAction').disabled = false;
+  document.getElementById('btnScanAction').onclick = doScan;
+  document.getElementById('step2').className = 'step active';
+  document.getElementById('step3').className = 'step';
+
+  // Update GPS info di scan screen
+  const locInfo = document.querySelector('#tabScan .scan-wrap > div:last-child');
+  if (locInfo) {
+    if (userLocation && officeLocation) {
+      const dist = Math.round(getDistanceMeters(userLocation.lat, userLocation.lng, officeLocation.lat, officeLocation.lng));
+      locInfo.textContent = `📍 GPS Valid · Jarak ${dist}m dari kantor ✓`;
+    } else if (!officeLocation) {
+      locInfo.textContent = '📍 GPS: Lokasi kantor belum diset Admin';
+    } else {
+      locInfo.textContent = '📍 GPS: Tidak terdeteksi';
+    }
+  }
+  showTab('scan');
+  startCamera();
+}
+
+// ============================================================
+// ===== FITUR BARU: ABSENSI TERSIMPAN DI LOCALSTORAGE =====
+// ============================================================
+function getTodayKey() {
+  const n = new Date();
+  return `absensi_${n.getFullYear()}_${n.getMonth()}_${n.getDate()}`;
+}
+
+function loadAbsensiHariIni() {
+  const key = getTodayKey();
+  const saved = localStorage.getItem(key);
+  if (saved) {
+    const data = JSON.parse(saved);
+    if (data.masuk) {
+      state.checkedIn = true;
+      state.checkInTime = data.masuk;
+      const timeIn = document.getElementById('timeIn');
+      if (timeIn) timeIn.textContent = data.masuk;
+      const btnMasuk = document.getElementById('btnMasuk');
+      if (btnMasuk) btnMasuk.classList.add('done', 'disabled');
+      const btnPulang = document.getElementById('btnPulang');
+      if (btnPulang) btnPulang.classList.remove('disabled');
+      const badge = document.getElementById('statusBadge');
+      if (badge) { badge.className = 'status-badge hadir'; badge.innerHTML = '<span class="dot"></span> Sudah Absen Masuk'; }
+    }
+    if (data.pulang) {
+      state.checkedOut = true;
+      state.checkOutTime = data.pulang;
+      const timeOut = document.getElementById('timeOut');
+      if (timeOut) timeOut.textContent = data.pulang;
+      const btnPulang = document.getElementById('btnPulang');
+      if (btnPulang) btnPulang.classList.add('done', 'disabled');
+      const navScan = document.getElementById('nav-scan');
+      if (navScan) { navScan.style.pointerEvents = 'none'; navScan.style.opacity = '0.4'; }
+    }
+  }
+}
+
+function simpanAbsensiKeStorage(type, time) {
+  const key = getTodayKey();
+  const existing = JSON.parse(localStorage.getItem(key) || '{}');
+  existing[type] = time;
+  existing.divisi = currentDivisi;
+  localStorage.setItem(key, JSON.stringify(existing));
+  // Tambahkan ke historyData
+  const now = new Date();
+  const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+  const existIdx = historyData.findIndex(d => d.date === String(now.getDate()).padStart(2,'0') && d.mo === months[now.getMonth()]);
+  if (existIdx >= 0) {
+    if (type === 'masuk') historyData[existIdx].in = time;
+    if (type === 'pulang') historyData[existIdx].out = time;
+  } else if (type === 'masuk') {
+    historyData.unshift({ date: String(now.getDate()).padStart(2,'0'), mo: months[now.getMonth()], in: time, out: '--:--', status: 'Tepat Waktu', type: 'Hadir' });
+  }
+}
+
+// ============================================================
+// ===== FITUR BARU: UPLOAD FILE NYATA =====
+// ============================================================
+function handleSakitUpload(event) {
+  handleGenericUpload(event, 'sakitFilePreview', 'sakitUploadZone');
+}
+
+function handleGenericUpload(event, previewId, zoneId) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showNotif('Ukuran file maksimal 5MB', 'danger'); return; }
+  const preview = document.getElementById(previewId);
+  const zone = document.getElementById(zoneId);
+  if (zone) zone.style.display = 'none';
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    let previewHTML = '';
+    if (file.type.startsWith('image/')) {
+      previewHTML = `<div style="position:relative;display:inline-block;">
+        <img src="${e.target.result}" style="max-width:100%;max-height:160px;border-radius:12px;border:2px solid #22C55E;"/>
+        <div style="font-size:.75rem;color:#166534;margin-top:4px;font-weight:600;">✅ ${file.name} (${(file.size/1024).toFixed(0)}KB)</div>
+        <button onclick="hapusUpload('${previewId}','${zoneId}')" style="margin-top:4px;padding:5px 12px;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:8px;font-family:var(--font);font-size:.72rem;font-weight:700;cursor:pointer;">🗑 Hapus</button>
+      </div>`;
+    } else {
+      previewHTML = `<div style="background:#DCFCE7;border-radius:12px;padding:10px 14px;">
+        <div style="font-size:.82rem;font-weight:700;color:#166534;">📄 ${file.name}</div>
+        <div style="font-size:.72rem;color:#166534;margin-top:2px;">${(file.size/1024).toFixed(0)}KB · PDF</div>
+        <button onclick="hapusUpload('${previewId}','${zoneId}')" style="margin-top:6px;padding:5px 12px;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:8px;font-family:var(--font);font-size:.72rem;font-weight:700;cursor:pointer;">🗑 Hapus</button>
+      </div>`;
+    }
+    if (preview) { preview.style.display = 'block'; preview.innerHTML = previewHTML; }
+    showNotif(`File "${file.name}" berhasil dipilih`, 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+function hapusUpload(previewId, zoneId) {
+  const preview = document.getElementById(previewId);
+  const zone = document.getElementById(zoneId);
+  if (preview) { preview.style.display = 'none'; preview.innerHTML = ''; }
+  if (zone) zone.style.display = 'block';
+}
+
+// ============================================================
+// ===== FITUR BARU: ADMIN - SETTING GPS & TARIF LEMBUR =====
+// ============================================================
+let adminLemburSetting = { tarif: 75000, minJam: 1, maxJam: 4 };
+
+function loadAdminLemburSetting() {
+  const saved = localStorage.getItem('lemburSetting');
+  if (saved) adminLemburSetting = JSON.parse(saved);
+}
+loadAdminLemburSetting();
+
+function renderAdminSetting() {
+  const officeLoc = localStorage.getItem('officeLocation');
+  const locParsed = officeLoc ? JSON.parse(officeLoc) : null;
+  return `
+  <div style="font-size:.78rem;font-weight:700;color:var(--subtext);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;">📍 Setting Lokasi Kantor</div>
+  <div style="background:var(--card);border-radius:14px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
+    ${locParsed ? `<div style="background:#DCFCE7;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:.8rem;color:#166534;font-weight:600;">✅ Lokasi kantor sudah diset<br><span style="font-weight:400;font-family:var(--mono);font-size:.72rem;">Lat: ${locParsed.lat.toFixed(6)}, Lng: ${locParsed.lng.toFixed(6)}<br>Radius: ${locParsed.radius}m</span></div>` : '<div style="background:#FEF9C3;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:.8rem;color:#854D0E;">⚠️ Lokasi kantor belum diset</div>'}
+    <div style="margin-bottom:10px;">
+      <label style="font-size:.75rem;font-weight:700;color:var(--subtext);display:block;margin-bottom:5px;">Latitude</label>
+      <input type="number" step="any" class="form-control" id="adminLat" placeholder="-6.200000" value="${locParsed ? locParsed.lat : ''}"/>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:.75rem;font-weight:700;color:var(--subtext);display:block;margin-bottom:5px;">Longitude</label>
+      <input type="number" step="any" class="form-control" id="adminLng" placeholder="106.816666" value="${locParsed ? locParsed.lng : ''}"/>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:.75rem;font-weight:700;color:var(--subtext);display:block;margin-bottom:5px;">Radius (meter)</label>
+      <input type="number" class="form-control" id="adminRadius" placeholder="100" value="${locParsed ? locParsed.radius : 100}"/>
+    </div>
+    <button onclick="adminSetLokasiGPS()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),#1A6DD1);color:#fff;border:none;border-radius:12px;font-family:var(--font);font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;">💾 Simpan Lokasi Kantor</button>
+    <button onclick="adminDeteksiLokasiSaya()" style="width:100%;padding:12px;background:var(--card);color:var(--accent);border:1.5px solid var(--border);border-radius:12px;font-family:var(--font);font-size:.85rem;font-weight:600;cursor:pointer;">📍 Deteksi Lokasi Saya Sekarang</button>
+  </div>
+
+  <div style="font-size:.78rem;font-weight:700;color:var(--subtext);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;">⚡ Setting Tarif Lembur</div>
+  <div style="background:var(--card);border-radius:14px;padding:16px;border:1px solid var(--border);margin-bottom:14px;">
+    <div style="margin-bottom:10px;">
+      <label style="font-size:.75rem;font-weight:700;color:var(--subtext);display:block;margin-bottom:5px;">Tarif Per Jam (Rp)</label>
+      <input type="number" class="form-control" id="adminTarifLembur" value="${adminLemburSetting.tarif}" placeholder="75000"/>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div>
+        <label style="font-size:.75rem;font-weight:700;color:var(--subtext);display:block;margin-bottom:5px;">Min Jam Lembur</label>
+        <input type="number" class="form-control" id="adminMinLembur" value="${adminLemburSetting.minJam}" min="1" max="8"/>
+      </div>
+      <div>
+        <label style="font-size:.75rem;font-weight:700;color:var(--subtext);display:block;margin-bottom:5px;">Max Jam Lembur</label>
+        <input type="number" class="form-control" id="adminMaxLembur" value="${adminLemburSetting.maxJam}" min="1" max="12"/>
+      </div>
+    </div>
+    <button onclick="adminSimpanLembur()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),#1A6DD1);color:#fff;border:none;border-radius:12px;font-family:var(--font);font-size:.88rem;font-weight:700;cursor:pointer;">💾 Simpan Setting Lembur</button>
+  </div>
+  <div style="height:16px;"></div>`;
+}
+
+function adminSetLokasiGPS() {
+  const lat = parseFloat(document.getElementById('adminLat').value);
+  const lng = parseFloat(document.getElementById('adminLng').value);
+  const radius = parseInt(document.getElementById('adminRadius').value) || 100;
+  if (isNaN(lat) || isNaN(lng)) { showNotif('Latitude dan Longitude wajib diisi', 'danger'); return; }
+  const loc = { lat, lng, radius };
+  localStorage.setItem('officeLocation', JSON.stringify(loc));
+  officeLocation = loc;
+  officeRadius = radius;
+  loadGPSSetting();
+  showNotif('Lokasi kantor berhasil disimpan ✅', 'success');
+  renderAdminContent();
+}
+
+function adminDeteksiLokasiSaya() {
+  if (!navigator.geolocation) { showNotif('GPS tidak didukung browser ini', 'warn'); return; }
+  showNotif('Mendeteksi lokasi...', '');
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      document.getElementById('adminLat').value = pos.coords.latitude.toFixed(7);
+      document.getElementById('adminLng').value = pos.coords.longitude.toFixed(7);
+      showNotif(`Lokasi terdeteksi: ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`, 'success');
+    },
+    () => { showNotif('Gagal mendeteksi lokasi. Izinkan GPS di browser.', 'danger'); }
+  );
+}
+
+function adminSimpanLembur() {
+  const tarif = parseInt(document.getElementById('adminTarifLembur').value);
+  const minJam = parseInt(document.getElementById('adminMinLembur').value);
+  const maxJam = parseInt(document.getElementById('adminMaxLembur').value);
+  if (!tarif || tarif <= 0) { showNotif('Tarif lembur tidak valid', 'danger'); return; }
+  if (minJam >= maxJam) { showNotif('Jam minimal harus kurang dari jam maksimal', 'danger'); return; }
+  adminLemburSetting = { tarif, minJam, maxJam };
+  localStorage.setItem('lemburSetting', JSON.stringify(adminLemburSetting));
+  showNotif(`Setting lembur disimpan: Rp ${tarif.toLocaleString('id')}/jam`, 'success');
+}
+
+// Override renderAdminContent untuk tab setting
+const _origRenderAdminContent = renderAdminContent;
+function renderAdminContent() {
+  const el = document.getElementById('adminContent');
+  if (!el) return;
+  if (currentAdminTab === 'dash')     el.innerHTML = renderAdminDash();
+  if (currentAdminTab === 'absensi')  el.innerHTML = renderAdminAbsensi();
+  if (currentAdminTab === 'approval') el.innerHTML = renderAdminApproval();
+  if (currentAdminTab === 'karyawan') el.innerHTML = renderAdminKaryawan();
+  if (currentAdminTab === 'mutasi')   el.innerHTML = renderAdminMutasi();
+  if (currentAdminTab === 'setting')  el.innerHTML = renderAdminSetting();
+}
+
+// Override adminTab untuk tambah tab setting
+function adminTab(tab) {
+  currentAdminTab = tab;
+  ['dash','absensi','approval','karyawan','mutasi','setting'].forEach(t => {
+    const btn = document.getElementById(`adm-tab-${t}`);
+    if (btn) btn.classList.toggle('active', t === tab);
+  });
+  renderAdminContent();
+}
+
+// ============================================================
+// ===== FITUR BARU: KALKULASI LEMBUR OTOMATIS =====
+// ============================================================
+function hitungLembur() {
+  const start = document.getElementById('lemburStart').value;
+  const end = document.getElementById('lemburEnd').value;
+  if (!start || !end) return;
+  const [sh, sm] = start.split(':').map(Number);
+  const [eh, em] = end.split(':').map(Number);
+  const totalMenit = (eh * 60 + em) - (sh * 60 + sm);
+  const totalJam = totalMenit / 60;
+  const estimasi = Math.floor(totalJam * adminLemburSetting.tarif);
+  const previewEl = document.getElementById('lemburPreviewHonor');
+  if (previewEl) {
+    if (totalMenit <= 0) {
+      previewEl.textContent = '⚠️ Jam selesai harus lebih dari jam mulai';
+      previewEl.style.color = 'var(--danger)';
+    } else if (totalJam < adminLemburSetting.minJam) {
+      previewEl.textContent = `⚠️ Min lembur ${adminLemburSetting.minJam} jam. Saat ini: ${totalJam.toFixed(1)} jam`;
+      previewEl.style.color = 'var(--warn)';
+    } else if (totalJam > adminLemburSetting.maxJam) {
+      previewEl.textContent = `⚠️ Max lembur ${adminLemburSetting.maxJam} jam. Saat ini: ${totalJam.toFixed(1)} jam`;
+      previewEl.style.color = 'var(--warn)';
+    } else {
+      previewEl.textContent = `✅ ${totalJam.toFixed(1)} jam × Rp ${adminLemburSetting.tarif.toLocaleString('id')} = Rp ${estimasi.toLocaleString('id')}`;
+      previewEl.style.color = '#166534';
+    }
+  }
+}
+
+// Patch doScan untuk simpan ke localStorage
+const _origDoScan_save = doScan;
+// (akan ditangani di bawah override)
+
+// Override simpanAbsensi di doScan
+// Tambahkan call simpanAbsensiKeStorage setelah doScan berhasil
+// Ini dilakukan dengan mempatch logika di doScan yang sudah ada
 
 </script>
 </body>
